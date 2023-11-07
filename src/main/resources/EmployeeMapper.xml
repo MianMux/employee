@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.tyut.employee.dao.EmployeeMapper">
+
+    <select id="findEmployeeById" resultType="employee" parameterType="Integer" >
+        select * from employee where id = #{id}
+    </select>
+    <insert id="insertEmployee" parameterType="employee" keyProperty="id" useGeneratedKeys="true">
+    <selectKey keyProperty="id" resultType="integer" order="AFTER">
+        select Last_insert_id()
+    </selectKey>
+        insert into employee(id,name,age,position) values (#{id},#{name},#{age},#{position})
+    </insert>
+    <update id="updateEmployee" parameterType="employee">
+        update employee set name = #{name},age = #{age},position=#{position} where id = #{id}
+    </update>
+
+
+    <delete id="deleteEmployee" parameterType="Integer">
+        delete from employee where id = #{id}
+    </delete>
+</mapper>
